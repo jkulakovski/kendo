@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="styles/kendo.common.min.css"/>
+    <link rel="stylesheet" href="styles/kendo.default.min.css"/>
+    <link rel="stylesheet" href="styles/kendo.default.mobile.min.css"/>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/kendo.all.min.js"></script>
+</head>
+<body>
+<script src="assets/js/cars.js"></script>
+<script src="assets/js/manufacturer.js"></script>
+<script src="assets/js/mark.js"></script>
+<div id="example">
+
+    <form class="demo-section k-content wide">
+        <ul class="fieldlist">
+            <li>
+                <h4>Manufacturer</h4>
+                <input id="province" data-role="dropdownlist"
+                       data-text-field="Model" data-value-field="Province"
+                       data-bind="value: model, source: manufacturer, events: { dataBound: onDataBound }"/>
+            </li>
+            <li>
+                <h4>Mark</h4>
+                <input data-role="dropdownlist" data-cascade-from="province"
+                       data-text-field="Mark"
+                       data-value-field="Mark"
+                       data-bind="value: marka, source: mark, events: { dataBound: onDataBound }"/>
+            </li>
+        </ul>
+        <button data-bind="click: apply" class="k-button k-primary">Apply</button>
+    </form>
+
+    <script>
+
+
+        $(document).ready(function () {
+
+            var viewModel = kendo.observable({
+
+                autoCompleteValue: null,
+                manufacturer: manufacturer,
+                mark: mark,
+
+                onDataBound: function (e) {
+                    e.sender.trigger('change');
+                },
+                model:'',
+                marka:'',
+                apply: function (e) {
+                    e.preventDefault();
+                    alert('Manufacturer: ' + this.get('model') +
+                            '\nMark: ' + this.get('marka') +
+                            '\nYear: ' + this.get('year') +
+                            '\nPrice: '+ this.get('price') +
+                            '\nTransmission: '+ this.get('transmission') +
+                            '\nFuel: '+ this.get('fuel') +
+                            '\nMileage: '+ this.get('mileage') +
+                            '\nCapacity: '+ this.get('capacity'));
+                }
+
+            });
+
+
+
+            kendo.bind($("#example"), viewModel);
+        });
+    </script>
+
+</div>
+
+
+</body>
+</html>

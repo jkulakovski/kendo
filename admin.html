@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>admin</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet">
+    <link href="assets/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link href="styles/kendo.common.min.css" rel="stylesheet"/>
+    <link href="styles/kendo.rtl.min.css" rel="stylesheet" type="text/css"/>
+    <link href="styles/kendo.default.min.css" rel="stylesheet"/>
+    <link href="styles/kendo.default.mobile.min.css" rel="stylesheet" type="text/css"/>
+    <script src="js/kendo.all.min.js"></script>
+</head>
+<body>
+<header class="compact">
+    <h1><a href="index.html">AV.by</a></h1>
+</header>
+<script src="assets/js/cars.js"></script>
+
+<div class="main-content-table">
+
+    <div class="demo-section k-content wide">
+        <div id="grid"></div>
+    </div>
+    <script>
+        function setTestData() {
+            var dataCar = cars;
+            localStorage["grid_data"] = JSON.stringify(dataCar);
+        }
+
+        $(document).ready(function () {
+
+            if (localStorage["grid_data"] == undefined) {
+                setTestData();
+            }
+
+            var dataSource = new kendo.data.DataSource({
+                transport: {
+                    create: function (options) {
+                        var localData = JSON.parse(localStorage["grid_data"]);
+                        options.data.id = localData[localData.length - 1].id + 1;
+                        localData.push(options.data);
+                        localStorage["grid_data"] = JSON.stringify(localData);
+                        options.success(options.data);
+                    },
+                    read: function (options) {
+                        var localData = JSON.parse(localStorage["grid_data"]);
+                        options.success(localData);
+                    },
+                    update: function (options) {
+                        var localData = JSON.parse(localStorage["grid_data"]);
+
+                        for (var i = 0; i < localData.length; i++) {
+                            if (localData[i].id == options.data.id) {
+                                localData[i].Value = options.data.Value;
+                            }
+                        }
+                        localStorage["grid_data"] = JSON.stringify(localData);
+                        options.success(options.data);
+                    },
+                    destroy: function (options) {
+                        var localData = JSON.parse(localStorage["grid_data"]);
+                        for (var i = 0; i < localData.length; i++) {
+                            if (localData[i].id === options.data.id) {
+                                localData.splice(i, 1);
+                                break;
+                            }
+                        }
+                        localStorage["grid_data"] = JSON.stringify(localData);
+                        options.success(localData);
+                    }
+                },
+                pageSize: 5,
+                schema: {
+                    model: {
+                        id: "id",
+                        fields: {
+                            name: {type: "string"},
+                            manufacturer: {type: "string"},
+                            year: {type: "number"},
+                            mileage: {type: "number"},
+                            fuel: {type: "string"},
+                            capacity: {type: "number"},
+                            transmission: {type: "string"},
+                            priceDollar: {type: "number"},
+                            image: {type: "string"}
+                        }
+                    }
+                }
+            });
+
+            $("#grid").kendoGrid({
+                dataSource: dataSource,
+                scrollable: true,
+                sortable: true,
+                reorderable: true,
+                resizable: true,
+                filterable: {
+                    mode: "row"
+                },
+                pageable: {
+                    buttonCount: 5
+                },
+                toolbar: ["create"],
+                columns: [
+                    {
+                        field: "name",
+                        title: "Name",
+                        filterable: {
+                            cell: {
+                                showOperators: false
+                            }
+                        }
+                    },
+                    {
+                        field: "manufacturer",
+                        title: "Manufacturer",
+                        filterable: {
+                            cell: {
+                                showOperators: false
+                            }
+                        }
+                    },
+                    {
+                        field: "year",
+                        title: "Year",
+                        filterable: {
+                            cell: {
+                                showOperators: false
+                            }
+                        }
+                    },
+                    {
+                        field: "mileage",
+                        title: "Mileage",
+                        filterable: {
+                            cell: {
+                                showOperators: false
+                            }
+                        }
+                    },
+                    {
+                        field: "fuel",
+                        title: "Fuel",
+                        filterable: {
+                            cell: {
+                                showOperators: false
+                            }
+                        }
+                    },
+                    {
+                        field: "capacity",
+                        title: "Capacity",
+                        filterable: {
+                            cell: {
+                                showOperators: false
+                            }
+                        }
+                    },
+                    {
+                        field: "transmission",
+                        title: "Transmission",
+                        filterable: {
+                            cell: {
+                                showOperators: false
+                            }
+                        }
+                    },
+                    {
+                        field: "priceDollar",
+                        format: "{0:c}",
+                        title: "Price",
+                        filterable: {
+                            cell: {
+                                showOperators: false
+                            }
+                        }
+                    },
+                    {
+                        sortable: false,
+                        filterable: false,
+                        field: "image",
+                        title: "Image",
+                        template: "<img width='100px' src='#: image #'>"
+                    },
+                    {
+                        command: ["edit", "destroy"],
+                        title: "&nbsp;"
+                    }
+                ],
+                editable: "inline"
+            })
+        });
+
+    </script>
+
+</div>
+
+</body>
+</html>

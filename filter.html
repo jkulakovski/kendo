@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>filter</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet">
+    <link href="assets/css/styles.css" rel="stylesheet">
+    <link href="styles/kendo.common.min.css" rel="stylesheet">
+    <link href="styles/kendo.rtl.min.css" rel="stylesheet">
+    <link href="styles/kendo.default.min.css" rel="stylesheet">
+    <link href="styles/kendo.default.mobile.min.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jszip.min.js"></script>
+    <script src="js/kendo.all.min.js"></script>
+    <script src="assets/js/manufacturer.js"></script>
+    <script src="assets/js/mark.js"></script>
+    <script src="assets/js/filter.js"></script>
+</head>
+<body>
+<div id="filter">
+
+    <div class="demo-section k-content wide">
+        <div>
+            <form>
+                <ul id="fieldlist">
+                    <li>
+                        <h4>Manufacturer</h4>
+                        <input id="province" data-role="dropdownlist"
+                               data-text-field="Model"
+                               data-value-field="Province"
+                               data-bind="value: model, source: manufacturer, events: { dataBound: onDataBound }"/>
+                    </li>
+                    <li>
+                        <h4>Mark</h4>
+                        <input data-role="dropdownlist" data-cascade-from="province"
+                               data-text-field="Mark"
+                               data-value-field="Mark"
+                               data-bind="value: marka, source: mark, events: { dataBound: onDataBound }"/>
+                    </li>
+                    <li>
+                        <h4>Year</h4>
+                        <input data-role="slider"
+                               data-min="1990"
+                               data-max="2017"
+                               data-small-step="1"
+                               data-large-step="10"
+                               data-bind="value: year"
+                               style="width: 300px"/>
+                    </li>
+                    <li>
+                        <h4>Price</h4>
+                        <input data-role="slider"
+                               data-orientation="vertical"
+                               data-max="20000"
+                               data-min="0"
+                               data-small-step="100"
+                               data-large-step="5000"
+                               data-bind="value: price"/>
+                    </li>
+                    <li>
+                        <h4>Transmission</h4>
+                        <p>Mechanics: <input type="radio" name="transmission" data-type="text" data-bind="checked: transmission" value="Mechanics"/></p>
+                        <p>Automatic: <input type="radio" name="transmission" data-type="text" data-bind="checked: transmission" value="Automatic"/></p>
+                    </li>
+                    <li>
+                        <h4>Fuel</h4>
+                        <p>Diesel: <input type="radio" name="fuel" data-type="text" data-bind="checked: fuel" value="Diesel"/></p>
+                        <p>Petrol: <input type="radio" name="fuel" data-type="text" data-bind="checked: fuel" value="Petrol"/></p>
+                        <p>Electro: <input type="radio" name="fuel" data-type="text" data-bind="checked: fuel" value="Electro"/></p>
+                    </li>
+                    <li>
+                        <h4>Mileage</h4>
+                        <input data-role="numerictextbox"  data-bind="value: mileage" />
+                    </li>
+                    <li>
+                        <h4>Capacity</h4>
+                        <input data-role="numerictextbox"  data-bind="value: capacity" />
+                    </li>
+                </ul>
+                <button data-bind="click: apply" class="k-button k-primary">Apply</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

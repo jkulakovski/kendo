@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>av.by</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet">
+    <link href="assets/css/styles.css" rel="stylesheet">
+    <link href="styles/kendo.common.min.css" rel="stylesheet">
+    <link href="styles/kendo.rtl.min.css" rel="stylesheet">
+    <link href="styles/kendo.default.min.css" rel="stylesheet">
+    <link href="styles/kendo.default.mobile.min.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jszip.min.js"></script>
+    <script src="js/kendo.all.min.js"></script>
+</head>
+<body>
+<script src="assets/js/cars.js"></script>
+<header class="compact">
+    <h2 class="tzine"><a href="admin.html">admin</a></h2>
+
+    <h1><a href="#">AV.by</a></h1>
+</header>
+<div  id="view">
+    <form class="search-form">
+        <p><input type="search" placeholder="Search cars">
+            <input type="submit" class="search" value="Search"></p>
+    </form><br>
+
+    <div >
+
+        <ul class="cars-list" data-template="row-template" data-bind="source: topRating">
+
+            <script id="row-template" type="text/x-kendo-template">​
+            <li data-uid="#: id #">
+                <a class="car-photo"><img data-bind="attr:{src: image}" height="130" /></a>
+                <h2><a data-bind="text:name"></a></h2>
+
+                <ul class="car-description">
+                    <li>Manufacturer: <span data-bind="text:manufacturer"></span></li>
+                    <li>Year: <span data-bind="text:year"></span></li>
+                    <li>Mileage:<span data-bind="text:mileage"></span>km</li>
+                </ul>
+                <button>Top!</button>
+                <p class="car-price">$<span data-bind="text:priceDollar"></span></p>
+
+                <div class="highlight"></div>
+            </li>
+            </script>
+        </ul>
+
+    </div>
+
+
+    <div class="single-car page">
+
+        <div class="overlay"></div>
+
+        <div class="preview-large">
+            <h3></h3>
+            <img src=""/>
+            Manufacturer:<p class="manufacturer"></p><br>
+            Year:<p class="year"></p><br>
+            Mileage:<p class="mileage"></p>km<br>
+            Fuel:<p class="fuel"></p><br>
+            Capacity:<p class="capacity"></p>sm<sup>3</sup><br>
+            Transmission:<p class="transmission"></p><br>
+
+            <p class="price"></p>$
+            <p class="priceBYN"></p>BYN
+            <p class="priceEUR"></p>€
+            <span class="close">×</span>
+        </div>
+
+    </div>
+
+
+    <div class="error page">
+        <h3>Sorry, something went wrong :(</h3>
+    </div>
+
+</div>
+
+<script src="assets/js/view25.js"></script>
+<script src="assets/js/app.js"></script>
+
+</body>
+</html>
